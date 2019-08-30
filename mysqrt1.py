@@ -23,6 +23,5 @@ def mysqrt2(n,e):
         g = float(result)
     print(result)
 
-
 mysqrt1(11,0.00001)
 mysqrt2(11, 0.0001)
