@@ -18,31 +18,34 @@ def mysqrt2(n: int, e: float) -> int:
     #Stops once tolerance is achieved.
     """
     #Initial guess
-    bound = int(n/2)
+    if n == 0: return 0
+    bound = int(n/2) + 1
     result = ''
     g = 0
     for i in range(bound):
-        if (n-i**2)*(n-(i+1)**2)<0 or (n-i**2)*(n-(i+1)**2)==0:
+        if (n-i**2)*(n-(i+1)**2)<0:
             g = i
             break
-    result = str(g) + '.'
+        elif (n-i**2)*(n-(i+1)**2)==0:
+            g = i+1
+            break
+    tenth = 0.10
     while(abs(n-g**2)>e):
-        for j in range(10):
-            r1 = result + str(j)
-            r2 = result + str(j+1)
-            if (n-float(r1)**2)*(n-float(r2)**2)<0:
-                result = result + str(j)
+        for j in range(1,10):
+            r1 = g + tenth*j
+            r2 = g + tenth*(j+1)
+            if (n-r1**2)*(n-r2**2)<0:
+                g = g + tenth*j
                 break
-        g = float(result)
+        tenth = tenth*0.10
     return g
 
 
 #Please change this parameters as test values
-n = 11
-e = 0.0001
+n = 1
+e = 0.00001
 #Testing each function
 g1 = mysqrt1(n,e)
-g2 = mysqrt2(n,e)
-#Printing to console
 print(g1)
+g2 = mysqrt2(n,e)
 print(g2)
